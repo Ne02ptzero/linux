@@ -1,0 +1,3 @@
+config UKL_LINUX
+       bool "Compile with UKL support"
+       def_bool y

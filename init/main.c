@@ -347,6 +347,16 @@ static int __init init_setup(char *str)
 }
 __setup("init=", init_setup);
 
+#ifdef CONFIG_UKL_LINUX
+bool ukl_mode = false;
+static int __init ukl_kernel(char *str)
+{
+    ukl_mode = true;
+    return 1;
+}
+early_param("ukl", ukl_kernel);
+#endif /* CONFIG_UKL_LINUX */
+
 static int __init rdinit_setup(char *str)
 {
 	unsigned int i;
@@ -1004,13 +1014,27 @@ static void __init do_pre_smp_initcalls(void)
 		do_one_initcall(initcall_from_entry(fn));
 }
 
+#ifdef CONFIG_UKL_LINUX
+extern int ukl_main(void);
+
+static int run_ukl_main(void)
+{
+    printk("Launching Unikernel...\n");
+    kthread_run((void*)ukl_main, NULL, "UKL");
+    while (1)
+        cond_resched();
+    return 0;
+}
+#endif /* CONFIG_UKL_LINUX */
+
 static int run_init_process(const char *init_filename)
 {
 	argv_init[0] = init_filename;
 	pr_info("Run %s as init process\n", init_filename);
-	return do_execve(getname_kernel(init_filename),
-		(const char __user *const __user *)argv_init,
-		(const char __user *const __user *)envp_init);
+
+       return do_execve(getname_kernel(init_filename),
+                (const char __user *const __user *)argv_init,
+                (const char __user *const __user *)envp_init);
 }
 
 static int try_to_run_init_process(const char *init_filename)
@@ -1082,6 +1106,15 @@ static int __ref kernel_init(void *unused)
 	numa_default_policy();
 
 	rcu_end_inkernel_boot();
+
+#ifdef CONFIG_UKL_LINUX
+        if (ukl_mode)
+        {
+            run_ukl_main();
+            return 0;
+        }
+
+#endif /* CONFIG_UKL_LINUX */
 
 	if (ramdisk_execute_command) {
 		ret = run_init_process(ramdisk_execute_command);
