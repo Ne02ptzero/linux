@@ -6,7 +6,6 @@
 int open(const char *filename, int flags, ...)
 {
     umode_t             mode = 0;
-    mm_segment_t        old_fs;
     int                 ret = -1;
 
     /* Parse the flags */
@@ -22,8 +21,8 @@ int open(const char *filename, int flags, ...)
     /* Make the call */
     ret = do_sys_open(AT_FDCWD, filename, flags, mode);
 
-    /*if (fd >= 0 && (flags & O_CLOEXEC))*/
-        /*fcntl(fd, F_SETFD, FD_CLOEXEC);*/
+    if (ret >= 0 && (flags & O_CLOEXEC))
+        fcntl(ret + 3, F_SETFD, FD_CLOEXEC);
 
     /**
      * Little trick used to mock stdin, stdout and stderr for UKL

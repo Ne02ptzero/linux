@@ -36,4 +36,10 @@ enum {
 #define offsetofend(TYPE, MEMBER) \
 	(offsetof(TYPE, MEMBER)	+ sizeof_field(TYPE, MEMBER))
 
+#ifndef CONFIG_UKL_LINUX
+#define __static_ukl static
+#else
+#define __static_ukl
+#endif /* CONFIG_UKL_LINUX */
+
 #endif

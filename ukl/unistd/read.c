@@ -6,8 +6,8 @@ ssize_t read(int fd, void *buf, size_t count)
     /* We don't support pipe, stdin, stdout or stderr reading */
     if (fd >= 0 && fd <= 2)
     {
-        printk(KERN_ERR "Unsupported read to %d\n", fd);
-        return 0;
+        printk(KERN_ERR "Trying to call read() with %d file descriptor\n", fd);
+        return -EINVAL;
     }
 
     /**

@@ -68,7 +68,6 @@ Syscalls to port:
 - msgsnd
 - msgrcv
 - msgctl
-- fcntl
 - flock
 - fsync
 - fdatasync

@@ -319,7 +319,7 @@ static long fcntl_rw_hint(struct file *file, unsigned int cmd,
 	}
 }
 
-static long do_fcntl(int fd, unsigned int cmd, unsigned long arg,
+__static_ukl long do_fcntl(int fd, unsigned int cmd, unsigned long arg,
 		struct file *filp)
 {
 	void __user *argp = (void __user *)arg;
@@ -432,7 +432,7 @@ static long do_fcntl(int fd, unsigned int cmd, unsigned long arg,
 	return err;
 }
 
-static int check_fcntl_cmd(unsigned cmd)
+__static_ukl int check_fcntl_cmd(unsigned cmd)
 {
 	switch (cmd) {
 	case F_DUPFD:
