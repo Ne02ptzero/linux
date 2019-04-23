@@ -15,5 +15,5 @@ int close(int fd)
 	 * Don't make any sense in kernel space, since a fd could very well
 	 * be 0.
 	 */
-	return ksys_close(fd - 3);
+	return ksys_close(fd);
 }

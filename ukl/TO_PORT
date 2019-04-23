@@ -4,7 +4,6 @@ Syscalls to port:
 - fstat
 - lstat
 - poll
-- lseek
 - mmap
 - mprotect
 - munmap
@@ -15,8 +14,6 @@ Syscalls to port:
 - ioctl
 - pread64
 - pwrite64
-- readv
-- writev
 - access
 - pipe
 - select

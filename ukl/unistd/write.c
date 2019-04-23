@@ -96,12 +96,13 @@ ssize_t write(int fd, const void *buf, size_t count)
 		console_lock_spinning_enable();
 		write_to_console(buf, count);
 		console_lock_spinning_disable_and_check();
+
+		/*
+		 * Console drivers does not returns the number of bytes
+		 * written, so let's assume all went well!
+		 */
+		return count;
 	}
 
-	/*
-	 * Little trick used to mock stdin, stdout and stderr for UKL
-	 * Don't make any sense in kernel space, since a fd could very well
-	 * be 0.
-	 */
-	return ksys_write(fd - 3, buf, count);
+	return ksys_write(fd, buf, count);
 }

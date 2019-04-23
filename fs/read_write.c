@@ -1006,7 +1006,7 @@ static ssize_t vfs_writev(struct file *file, const struct iovec __user *vec,
 	return ret;
 }
 
-static ssize_t do_readv(unsigned long fd, const struct iovec __user *vec,
+__static_ukl ssize_t do_readv(unsigned long fd, const struct iovec __user *vec,
 			unsigned long vlen, rwf_t flags)
 {
 	struct fd f = fdget_pos(fd);
@@ -1026,7 +1026,7 @@ static ssize_t do_readv(unsigned long fd, const struct iovec __user *vec,
 	return ret;
 }
 
-static ssize_t do_writev(unsigned long fd, const struct iovec __user *vec,
+__static_ukl ssize_t do_writev(unsigned long fd, const struct iovec __user *vec,
 			 unsigned long vlen, rwf_t flags)
 {
 	struct fd f = fdget_pos(fd);

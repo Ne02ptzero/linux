@@ -4,6 +4,6 @@
 #define UKL_BAD_FD(fn, d)                                                      \
 	printk(KERN_ERR "Trying to call " fn                                   \
 			"() with bad file descriptor: %d",                     \
-	       d)
+	       (int)d)
 
 #endif /* UKL_INTERNALS_H */

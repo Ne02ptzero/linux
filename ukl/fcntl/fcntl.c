@@ -49,13 +49,6 @@ int fcntl(int fd, int cmd, ...)
 		return -EINVAL;
 	}
 
-	/*
-	 * Little trick used to mock stdin, stdout and stderr for UKL
-	 * Don't make any sense in kernel space, since a fd could very well
-	 * be 0.
-	 */
-	fd -= 3;
-
 	/* Read optionnals arguments */
 	va_start(ap, cmd);
 	arg = va_arg(ap, unsigned long);

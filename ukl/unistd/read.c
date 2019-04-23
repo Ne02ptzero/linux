@@ -11,12 +11,5 @@ ssize_t read(int fd, void *buf, size_t count)
 		return -EINVAL;
 	}
 
-	/*
-	 * Little trick used to mock stdin, stdout and stderr for UKL
-	 * Don't make any sense in kernel space, since a fd could very well
-	 * be 0.
-	 */
-	fd -= 3;
-
 	return ksys_read(fd, buf, count);
 }
