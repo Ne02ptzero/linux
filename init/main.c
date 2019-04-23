@@ -351,8 +351,8 @@ __setup("init=", init_setup);
 bool ukl_mode = false;
 static int __init ukl_kernel(char *str)
 {
-    ukl_mode = true;
-    return 1;
+	ukl_mode = true;
+	return 1;
 }
 early_param("ukl", ukl_kernel);
 #endif /* CONFIG_UKL_LINUX */
@@ -1019,11 +1019,11 @@ extern int ukl_main(void);
 
 static int run_ukl_main(void)
 {
-    printk("Launching Unikernel...\n");
-    kthread_run((void*)ukl_main, NULL, "UKL");
-    while (1)
-        cond_resched();
-    return 0;
+	printk("Launching Unikernel...\n");
+	kthread_run((void *)ukl_main, NULL, "UKL");
+	while (1)
+		cond_resched();
+	return 0;
 }
 #endif /* CONFIG_UKL_LINUX */
 
@@ -1108,11 +1108,10 @@ static int __ref kernel_init(void *unused)
 	rcu_end_inkernel_boot();
 
 #ifdef CONFIG_UKL_LINUX
-        if (ukl_mode)
-        {
-            run_ukl_main();
-            return 0;
-        }
+	if (ukl_mode) {
+		run_ukl_main();
+		return 0;
+	}
 
 #endif /* CONFIG_UKL_LINUX */
 
