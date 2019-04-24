@@ -51,5 +51,6 @@ off_t __stdio_seek(FILE *f, off_t off, int whence);
 size_t __fwritex(const unsigned char *s, size_t l, FILE *f);
 int __towrite(FILE *f);
 int __toread(FILE *f);
+int __overflow(FILE *f, int _c);
 
 #endif /* STDIO_INTERNALS_H */

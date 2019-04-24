@@ -27,5 +27,8 @@ int fputs(const char *, FILE *);
 int fclose(FILE *);
 int fflush(FILE *);
 int fseek(FILE *, long, int);
+int putc(int c, FILE *f);
+int putc_unlocked(int c, FILE *f);
+int putchar(int c);
 
 #endif /* STDIO_H */
