@@ -112,6 +112,11 @@ typedef u32			uint32_t;
 typedef u64			uint64_t;
 typedef u64			u_int64_t;
 typedef s64			int64_t;
+#ifdef CONFIG_UKL_LINUX
+typedef u64			uintmax_t;
+typedef s64			intmax_t;
+typedef struct __mbstate_t { unsigned __opaque1, __opaque2; } mbstate_t;
+#endif /* CONFIG_UKL_LINUX */
 #endif
 
 /* this is a special 64bit data type that is 8-byte aligned */

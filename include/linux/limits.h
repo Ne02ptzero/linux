@@ -32,5 +32,9 @@
 #define U64_MAX		((u64)~0ULL)
 #define S64_MAX		((s64)(U64_MAX >> 1))
 #define S64_MIN		((s64)(-S64_MAX - 1))
+#ifdef CONFIG_UKL_LINUX
+#define UINTMAX_MAX 	U64_MAX
+#define INTMAX_MAX 	S64_MAX
+#endif /* CONFIG_UKL_LINUX */
 
 #endif /* _LINUX_LIMITS_H */
