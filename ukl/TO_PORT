@@ -1,8 +1,5 @@
 Syscalls to port:
 ================
-- stat
-- fstat
-- lstat
 - poll
 - mmap
 - mprotect
@@ -11,7 +8,6 @@ Syscalls to port:
 - rt_sigaction
 - rt_sigprocmask
 - rt_sigreturn
-- ioctl
 - pread64
 - pwrite64
 - access
@@ -254,7 +250,6 @@ Syscalls to port:
 - mknodat
 - fchownat
 - futimesat
-- newfstatat
 - unlinkat
 - renameat
 - linkat
