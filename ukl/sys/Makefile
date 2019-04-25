@@ -1,1 +1,1 @@
-obj-y := uio.o
+obj-y := uio.o ioctl.o
