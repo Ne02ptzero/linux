@@ -349,12 +349,23 @@ __setup("init=", init_setup);
 
 #ifdef CONFIG_UKL_LINUX
 bool ukl_mode = false;
+bool ukl_hybrid_mode = false;
+
 static int __init ukl_kernel(char *str)
 {
 	ukl_mode = true;
 	return 1;
 }
 early_param("ukl", ukl_kernel);
+
+static int __init ukl_hybrid_kernel(char *str)
+{
+	ukl_hybrid_mode = true;
+	ukl_mode = true;
+	return 1;
+}
+early_param("ukl-hybrid", ukl_hybrid_kernel);
+
 #endif /* CONFIG_UKL_LINUX */
 
 static int __init rdinit_setup(char *str)
@@ -1021,8 +1032,14 @@ static int run_ukl_main(void)
 {
 	printk("Launching Unikernel...\n");
 	kthread_run((void *)ukl_main, NULL, "UKL");
-	while (1)
-		cond_resched();
+
+	/* On non-hybrid mode, let's do nothin till the end of time */
+	if (!ukl_hybrid_mode) {
+		while (1)
+			cond_resched();
+	}
+
+	/* Else, let's launch the init ! */
 	return 0;
 }
 #endif /* CONFIG_UKL_LINUX */
@@ -1110,7 +1127,6 @@ static int __ref kernel_init(void *unused)
 #ifdef CONFIG_UKL_LINUX
 	if (ukl_mode) {
 		run_ukl_main();
-		return 0;
 	}
 
 #endif /* CONFIG_UKL_LINUX */
